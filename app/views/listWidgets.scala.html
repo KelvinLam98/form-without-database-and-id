@@ -1,0 +1,31 @@
+@(widgets: Seq[PersonalData], form: Form[WidgetForm.Data], postUrl: Call)(implicit request: MessagesRequestHeader)
+
+  @main("Personal") {
+
+@* Flash shows updates to a page *@
+@request.flash.data.map{ case (name, value) =>
+<div>@name: @value</div>
+}
+
+
+    <h1>Personal Details</h1>
+    <button><a href="@routes.WidgetController.listing">Add</a> </button>
+
+    <table>
+      <thead>
+      <tr><th>Name</th><th>Age</th><th>Address</th></tr>
+      </thead>
+      <tbody>
+      @for(w <- widgets) {
+        <tr><td>@w.name</td>
+            <td>@w.age</td>
+            <td>@w.address</td>
+            <td><a href="@routes.WidgetController.delete(w.name)">Delete</a></td>
+            <td><a href="@routes.WidgetController.editing(w.name)">Edit</a></td></tr>
+      }
+      </tbody>
+    </table>
+
+    <hr/>
+
+  }

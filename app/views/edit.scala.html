@@ -1,0 +1,29 @@
+@(form: Form[WidgetForm.Data], errors: Array[String], postUpdate: Call)(implicit request: MessagesRequestHeader)
+
+
+@main("Edit") {
+
+<h1>Edit</h1>
+
+@* Global errors are not tied to any particular form field *@
+@if(form.hasGlobalErrors) {
+@form.globalErrors.map { error: FormError =>
+<div>
+@error.key: @error.message
+</div>
+}
+}
+
+@helper.form(postUpdate) {
+@helper.CSRF.formField
+
+@helper.inputText(form("name"))
+
+@helper.inputText(form("age"))
+
+@helper.inputText(form("address"))
+
+<button>Edit</button>
+
+}
+}
